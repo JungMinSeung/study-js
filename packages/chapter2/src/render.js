@@ -44,6 +44,7 @@ export function render(parent, newNode = null, oldNode = null, index = 0) {
    * 1. newNode가 없고 oldNode만 있는 경우 - oldNode를 제거 후 종료 (removeChild)
    * 2. newNode가 있고 oldNode가 없는 경우 - newNode를 추가 후 종료 (appendChild)
    * 3. newNode와 oldNode가 둘 다 문자열이고 서로 다른 경우 - newNode로 교체 후 종료 (replaceChild)
+   *    - node가 문자열이다 -> 자식이 없다.
    * 4. newNode와 oldNode의 타입이 다른 경우 - newNode로 교체 후 종료 (replaceChild)
    * 5. newNode와 oldNode의 타입이 같은 경우 - 속성과 자식을 비교하고 각각 업데이트
    */
@@ -73,9 +74,5 @@ export function render(parent, newNode = null, oldNode = null, index = 0) {
 
   for (let i = 0; i < maxLength; i++) {
     render(targetNode, newNode.children[i], oldNode.children[i], i);
-  }
-
-  for (let i = maxLength; i < targetNode.childNodes.length; i++) {
-    targetNode.childNodes[i].remove();
   }
 }
