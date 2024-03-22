@@ -6,9 +6,6 @@ function MyReact() {
   let _rootComponent;
 
   const _render = () => {
-    resetHookContext();
-    _rootComponent();
-
     _root.innerHTML = null;
     render(_root, _rootComponent);
   };
@@ -16,7 +13,14 @@ function MyReact() {
   function render($root, rootComponent) {
     _root = $root;
     _rootComponent = rootComponent;
-    updateElement(_root, _rootComponent());
+    /**
+     * Context 초기화
+     * 1. 리렌더링 전 초기화
+     * 2. 이전 테스트에서 사용한 컨텍스트 초기화
+     */
+    resetHookContext();
+    const jsx = _rootComponent();
+    updateElement(_root, jsx);
   }
 
   const {
